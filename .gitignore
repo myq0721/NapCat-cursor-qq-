@@ -1,0 +1,21 @@
+node_modules/
+dist/
+
+# Secrets & local config
+.env
+.env.*
+!.env.example
+
+# QQ chat exports & all derived runtime data
+sucai.txt
+data/
+personas/**/samples.json
+personas/**/profile.json
+
+# Local NapCat install (QQ id, webui token, protocol config)
+NapCat.Shell/
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db

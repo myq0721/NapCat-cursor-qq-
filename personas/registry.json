@@ -1,0 +1,17 @@
+{
+  "defaultId": "ayanami",
+  "personas": [
+    {
+      "id": "ayanami",
+      "displayName": "Ayanami",
+      "type": "full",
+      "description": "Full persona: profile.json + optional sucai.txt import"
+    },
+    {
+      "id": "lingbo",
+      "displayName": "绫波",
+      "type": "markdown",
+      "description": "Markdown persona from personas/lingbo/prompt.md"
+    }
+  ]
+}
