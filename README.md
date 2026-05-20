@@ -119,16 +119,29 @@ npm run dev
 QQ 命令：`/当前模型`、`/切换模型`（主人）、`/风格`。
 
 ---
+已按你的要求改好群聊触发逻辑，重启 npm run start 后生效。
 
-## 群聊与私聊行为
+- 立刻回复（仅这几种）
+触发	示例
+@ 机器人
+@綾波...です ？
+#教学模式
+#unity是什么
+叫名字
+含 绫波、Ayanami 等（当前人设关键词）
+接话
+@ 过机器人后的延续，如「教我游戏开发」
 
-| 场景 | 触发 |
-|------|------|
-| 私聊 | 任意消息 |
-| 群聊即时 | **@ 机器人** 或消息以 **`#`** 开头（教学模式） |
-| 群聊定时 | 每 `GROUP_PROACTIVE_INTERVAL_MS` 对活跃群接最近一条话茬 |
+- 不立刻回复
+情况	行为
+只 @ 别人
+如 @高价回收旧手机 520快乐 → 不立刻回，等定时扫群
+普通闲聊
+同上，走 20 分钟扫群（已修正间隔）
+定时扫群时会：
 
-`#` 模式示例：`#unity 是什么` — 允许较长讲解，仍遵守人设语气。
+优先挑带「绫波 / Ayanami」等关键词的消息
+跳过「只 @ 别人、没提机器人」的消息（避免再误接 520 祝福这类）
 
 ---
 
@@ -159,6 +172,12 @@ QQ 命令：`/当前模型`、`/切换模型`（主人）、`/风格`。
 
 ---
 
+## 功能
+
+#群聊消息汇总
+
+---
+
 ## 开发
 
 ```powershell
@@ -172,55 +191,3 @@ npm run dev
 ### 扩展为「改代码机器人」
 
 将 `CURSOR_CWD` 指向目标仓库，并调整 `style-profile.ts` / `chat-rules.ts` 中「不要改文件」类约束。
-
----
-
-## 安全与隐私（推 GitHub 前必读）
-
-以下内容**已在 `.gitignore` 中排除**，切勿手动 `git add -f`：
-
-| 路径 | 风险 |
-|------|------|
-| `.env` | API Key、QQ 号 |
-| `sucai.txt` | 完整聊天记录 |
-| `data/` | 运行时状态、活跃人设 |
-| `personas/**/samples.json` | 抽样聊天记录（含 QQ 号、群链接等） |
-| `personas/**/profile.json` | 学习后的个人风格与例句 |
-| `NapCat.Shell/` | NapCat 配置、WebUI token、协议 QQ |
-
-仓库内可提交：`personas/**/profile.example.json`、`personas/**/prompt.md`（请自行审查是否含敏感措辞）。
-
-推送到公开仓库前建议执行：
-
-```powershell
-git status
-git check-ignore -v .env sucai.txt personas\ayanami\samples.json
-```
-
-若 `.env` 曾误提交或泄露，请立即在 Cursor Dashboard **轮换 API Key**。
-
----
-
-## 目录结构
-
-```
-qqbot/
-├── .env.example
-├── personas/
-│   ├── registry.json
-│   ├── ayanami/
-│   │   └── profile.example.json   # 复制为 profile.json 使用
-│   └── lingbo/
-│       └── prompt.md
-├── src/
-├── package.json
-└── README.md
-```
-
-本地运行后还会生成（不提交）：`data/`、`personas/ayanami/profile.json`、`personas/ayanami/samples.json`、`sucai.txt`。
-
----
-
-## License
-
-MIT（如未包含 LICENSE 文件可自行添加。）
